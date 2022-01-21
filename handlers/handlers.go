@@ -11,16 +11,16 @@ type employee struct {
 	store stores.Employee
 }
 
-func New(store stores.Employee) employee {
-	return employee{store: store}
+func New(store stores.Employee) *employee {
+	return &employee{store: store}
 }
 
-func (s employee) Find(c *gofr.Context) (interface{}, error) {
+func (s *employee) Find(c *gofr.Context) (interface{}, error) {
 	id := c.PathParam("id")
 	return s.store.Find(id)
 }
 
-func (s employee) Create(c *gofr.Context) (interface{}, error) {
+func (s *employee) Create(c *gofr.Context) (interface{}, error) {
 	var employee models.Employee
 
 	if err := c.Bind(employee); err != nil {
@@ -30,7 +30,7 @@ func (s employee) Create(c *gofr.Context) (interface{}, error) {
 	return s.store.Create(employee), nil
 }
 
-func (s employee) Update(c *gofr.Context) (interface{}, error) {
+func (s *employee) Update(c *gofr.Context) (interface{}, error) {
 	id := c.PathParam("id")
 
 	var employee models.Employee
@@ -42,7 +42,7 @@ func (s employee) Update(c *gofr.Context) (interface{}, error) {
 	return s.store.Update(id, employee), nil
 }
 
-func (s employee) Delete(c *gofr.Context) (interface{}, error) {
+func (s *employee) Delete(c *gofr.Context) (interface{}, error) {
 	id := c.PathParam("id")
 
 	return s.store.Delete(id), nil
