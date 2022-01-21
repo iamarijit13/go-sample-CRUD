@@ -27,7 +27,7 @@ func (s employee) Create(c *gofr.Context) (interface{}, error) {
 		return nil, err
 	}
 
-	return nil, s.store.Create(employee)
+	return s.store.Create(employee), nil
 }
 
 func (s employee) Update(c *gofr.Context) (interface{}, error) {
@@ -39,11 +39,11 @@ func (s employee) Update(c *gofr.Context) (interface{}, error) {
 		return nil, err
 	}
 
-	return nil, s.store.Update(id, employee)
+	return s.store.Update(id, employee), nil
 }
 
 func (s employee) Delete(c *gofr.Context) (interface{}, error) {
 	id := c.PathParam("id")
 
-	return nil, s.store.Delete(id)
+	return s.store.Delete(id), nil
 }
